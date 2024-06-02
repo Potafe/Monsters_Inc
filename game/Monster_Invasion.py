@@ -1,7 +1,8 @@
 import sys
 import pygame
 
-import Modules.settings as Settings
+from Modules.settings import Settings
+from Modules.Ship import Ship
 
 def run_game():
     pygame.init()
@@ -11,12 +12,17 @@ def run_game():
     
     pygame.display.set_caption("Monster Invasion")
 
+    ship = Ship(screen)
+
     while True:
         for event in pygame.event.get():
             if event.type == pygame.QUIT:
                 sys.exit()
         
         screen.fill(ai_settings.bg_color)
+
+        ship.blitme()
+
         pygame.display.flip()
 
 
