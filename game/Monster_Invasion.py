@@ -1,9 +1,12 @@
-import sys
+import sys  
 import pygame
 
 from Modules.settings import Settings
 from Modules.Ship import Ship
+
 import Modules.game_function as gf
+
+from pygame.sprite import Group
 
 def run_game():
     pygame.init()
@@ -14,13 +17,12 @@ def run_game():
     pygame.display.set_caption("Monster Invasion")
 
     ship = Ship(ai_settings, screen)
-    
+    bullets = Group()
+
     while True:
-        gf.check_events(ship)
+        gf.check_events(ai_settings, screen, ship, bullets)        
         ship.update()
-        gf.update_screen(ai_settings, screen, ship)
-
-
-
+        gf.update_bullets(bullets)
+        gf.update_screen(ai_settings, screen, ship, bullets)
 
 run_game()
