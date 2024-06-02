@@ -73,6 +73,20 @@ def get_number_rows(ai_settings, ship_height, alien_height):
     number_rows = int(available_space_y / (2 * alien_height))
     return number_rows
 
+def update_aliens(ai_settings, aliens):
+    check_fleet_edges(ai_settings, aliens)
+    aliens.update()
+
+def change_fleet_direction(ai_settings, aliens):
+    for alien in aliens.sprites():
+        alien.rect.y += ai_settings.fleet_drop_speed
+        ai_settings.fleet_direction *= -1
+
+def check_fleet_edges(ai_settings, aliens):
+    for alien in aliens.sprites():
+        if alien.check_edges():
+            change_fleet_direction(ai_settings, aliens)
+            break
 
 def update_screen(ai_settings, screen, ship, aliens, bullets):
     screen.fill(ai_settings.bg_color)   
